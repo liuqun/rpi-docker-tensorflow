@@ -23,7 +23,7 @@ RUN python /tmp/get-pip.py && \
         rm /tmp/get-pip.py
 
 COPY pip.conf /etc/pip.conf
-RUN pip --no-cache-dir install "numpy==1.15.0"
+RUN pip --no-cache-dir install "numpy==1.14.5"
 RUN pip --no-cache-dir install \
         ipykernel \
         jupyter \
