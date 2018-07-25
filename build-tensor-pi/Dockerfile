@@ -3,33 +3,31 @@ FROM resin/rpi-raspbian
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \
+        libatlas3-base \
         libfreetype6-dev \
         libpng12-dev \
         libzmq3-dev \
         pkg-config \
         python \
         python-dev \
-        python-numpy \
-        python-scipy \
         rsync \
-        unzip
-
-RUN  apt-get clean && \
+        unzip \
+    && apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python get-pip.py && \
-        rm get-pip.py
+WORKDIR /tmp
+COPY get-pip.py /tmp/
+RUN python /tmp/get-pip.py && \
+        rm /tmp/get-pip.py
 
+COPY pip.conf /etc/pip.conf
+RUN pip --no-cache-dir install "numpy==1.15.0"
 RUN pip --no-cache-dir install \
         ipykernel \
         jupyter \
         matplotlib && \
             python -m ipykernel.kernelspec
-
-ADD tensorflow-0.10.0-cp27-none-linux_armv7l.whl .
-
-RUN pip install tensorflow-0.10.0-cp27-none-linux_armv7l.whl
+RUN pip --no-cache-dir install "tensorflow==1.9.0"
 
 COPY jupyter_notebook_config.py /root/.jupyter/
 
