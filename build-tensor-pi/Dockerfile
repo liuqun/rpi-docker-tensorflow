@@ -1,19 +1,21 @@
-FROM multiarch/debian-debootstrap:armhf-jessie
+FROM multiarch/debian-debootstrap:armhf-stretch
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \
         libatlas3-base \
         libfreetype6-dev \
-        libpng12-dev \
+        libpng-dev \
         libzmq3-dev \
         pkg-config \
-        python \
-        python-dev \
+        python3 \
+        python3-dev \
         rsync \
         unzip \
     && apt-get clean && \
         rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 WORKDIR /tmp
 COPY get-pip.py /tmp/
