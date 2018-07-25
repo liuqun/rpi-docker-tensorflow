@@ -1,11 +1,11 @@
-FROM multiarch/debian-debootstrap:armhf-stretch
+FROM multiarch/debian-debootstrap:armhf-jessie
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \
         libatlas3-base \
         libfreetype6-dev \
-        libpng-dev \
+        libpng12-dev \
         libzmq3-dev \
         pkg-config \
         python3 \
