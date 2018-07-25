@@ -24,16 +24,20 @@ the Raspberry Pi.
 
 ## Build instructions
 
-1. Install Docker on your Raspberry Pi.
-  1. `curl -sSL get.docker.com | sh`
-  1. `sudo usermod -aG docker pi`
-  1. log out, then log back in again for the change to take effect
-  1. `sudo systemctl start docker`
+1. Install Docker on your 64-bit x86 cross-build host.
+    * `curl -sSL get.docker.com | sh`
+    * `sudo usermod -aG docker pi`
+    * log out, then log back in again for the change to take effect
+    * `sudo systemctl start docker`
+1. Run qemu multiarch support service.
+    * `docker run --rm --privileged multiarch/qemu-user-static:register`
 1. Clone this repository into a directory of your choice
-  1. `git clone https://github.com/romilly/rpi-docker-tensorflow.git`
+    * `git clone https://github.com/liuqun/rpi-docker-tensorflow.git`
+    * `cd rpi-docker-tensorflow`
+    * `git checkout crossbuild`
 1. Build the image
-  1. `cd rpi-docker-tensorflow/build-tensor-pi/`
-  1. `docker build -t='yourName/rpi-docker-tensorflow' .`
+    * `cd build-tensor-pi`
+    * `docker build -t='yourName/rpi-docker-tensorflow' .`
 
 ## Running the image
 
